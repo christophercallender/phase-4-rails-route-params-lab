@@ -1,11 +1,14 @@
 class StudentsController < ApplicationController
-  def index
-    students = Student.all
-    render json: students
+  def id
+    render json: Student.find(params[:id])
   end
 
-  def id
-    student = Student.find(params[:id])
-    render json: student
+  def index
+    render json:
+             Student.where(
+               "first_name LIKE ? OR last_name LIKE ?",
+               "%#{params[:name]}%",
+               "%#{params[:name]}%"
+             )
   end
 end
